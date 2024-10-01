@@ -7483,8 +7483,6 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <center><img alt="No description has been provided for this image" src="https://i.imgur.com/zRrFdsf.png" width="700"/></center>
-<h1 id="Data-Formatting-(categorical)">Data Formatting (categorical)<a class="anchor-link" href="#Data-Formatting-(categorical)">¶</a></h1><p>In this formatting tutorial we will see the categorical case.</p>
-<p>Let's get some data:</p>
 </div>
 </div>
 </div>
@@ -7493,13 +7491,27 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1">#Importacion de pandas</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="c1"># Obtención de la tabla de Excel sin encabezado</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">'https://github.com/DiegoAntonio-web/PC2/blob/main/HDI%20(1).xlsx?raw=true'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
-<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">'https://github.com/DiegoAntonio-web/PC2/blob/main/HDI%20(1).xlsx?raw=true'</span><span class="p">,</span> <span class="n">header</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
+<span class="c1"># Seleccionar las filas 5, 6 y 7 como nuevo encabezado (índices 4, 5 y 6)</span>
+<span class="n">new_header</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">7</span><span class="p">]</span>  <span class="c1"># Filas 5, 6 y 7</span>
+
+<span class="c1"># Eliminar las filas usadas como encabezado</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+
+<span class="c1"># Combinar las filas seleccionadas en un nuevo encabezado</span>
+<span class="n">data</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">new_header</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Restablecer el índice</span>
+<span class="n">data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Mostrar el DataFrame resultante</span>
 <span class="n">data</span>
 </pre></div>
 </div>
@@ -7511,9 +7523,9 @@ a.anchor-link {
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[8]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[1]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-a9112bcf-88e6-46b7-8b8d-88c6ff9d3cce">
+<div class="colab-df-container" id="df-03b71ff0-9448-42bd-9e9d-9c667cb32d76">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -7532,37 +7544,37 @@ a.anchor-link {
 <thead>
 <tr style="text-align: right;">
 <th></th>
-<th>Unnamed: 0</th>
-<th>Unnamed: 1</th>
-<th>Human Development Index (HDI)</th>
-<th>Unnamed: 3</th>
-<th>Life expectancy at birth</th>
-<th>Unnamed: 5</th>
-<th>Expected years of schooling</th>
-<th>Unnamed: 7</th>
-<th>Mean years of schooling</th>
-<th>Unnamed: 9</th>
-<th>Gross national income (GNI) per capita</th>
-<th>Unnamed: 11</th>
-<th>GNI per capita rank minus HDI rank</th>
-<th>Unnamed: 13</th>
 <th>HDI rank</th>
+<th>Country</th>
+<th>Human Development Index (HDI)  Value 2021</th>
+<th></th>
+<th>Life expectancy at birth (years) 2021</th>
+<th></th>
+<th>Expected years of schooling (years) 2021</th>
+<th>a</th>
+<th>Mean years of schooling (years) 2021</th>
+<th>a</th>
+<th>Gross national income (GNI) per capita (2017 PPP $) 2021</th>
+<th></th>
+<th>GNI per capita rank minus HDI rank 2021</th>
+<th>b</th>
+<th>HDI rank 2020</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <th>0</th>
-<td>HDI rank</td>
-<td>Country</td>
-<td>Value</td>
+<td>Back</td>
+<td>Table 1. Human Development Index and its compo...</td>
 <td>NaN</td>
-<td>(years)</td>
 <td>NaN</td>
-<td>(years)</td>
 <td>NaN</td>
-<td>(years)</td>
 <td>NaN</td>
-<td>(2017 PPP $)</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
@@ -7572,22 +7584,58 @@ a.anchor-link {
 <th>1</th>
 <td>NaN</td>
 <td>NaN</td>
-<td>2021</td>
 <td>NaN</td>
-<td>2021</td>
 <td>NaN</td>
-<td>2021</td>
-<td>a</td>
-<td>2021</td>
-<td>a</td>
-<td>2021</td>
 <td>NaN</td>
-<td>2021</td>
-<td>b</td>
-<td>2020</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
 </tr>
 <tr>
 <th>2</th>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>SDG3</td>
+<td>NaN</td>
+<td>SDG4.3</td>
+<td>NaN</td>
+<td>SDG4.4</td>
+<td>NaN</td>
+<td>SDG8.5</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>3</th>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>4</th>
 <td>NaN</td>
 <td>VERY HIGH HUMAN DEVELOPMENT</td>
 <td>NaN</td>
@@ -7603,42 +7651,6 @@ a.anchor-link {
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
-</tr>
-<tr>
-<th>3</th>
-<td>1</td>
-<td>Switzerland</td>
-<td>0.962</td>
-<td>NaN</td>
-<td>83.9872</td>
-<td>NaN</td>
-<td>16.500299</td>
-<td>NaN</td>
-<td>13.85966</td>
-<td>NaN</td>
-<td>66933.00454</td>
-<td>NaN</td>
-<td>5</td>
-<td>NaN</td>
-<td>3</td>
-</tr>
-<tr>
-<th>4</th>
-<td>2</td>
-<td>Norway</td>
-<td>0.961</td>
-<td>NaN</td>
-<td>83.2339</td>
-<td>NaN</td>
-<td>18.1852</td>
-<td>c</td>
-<td>13.00363</td>
-<td>NaN</td>
-<td>64660.10622</td>
-<td>NaN</td>
-<td>6</td>
-<td>NaN</td>
-<td>1</td>
 </tr>
 <tr>
 <th>...</th>
@@ -7659,7 +7671,7 @@ a.anchor-link {
 <td>...</td>
 </tr>
 <tr>
-<th>267</th>
+<th>269</th>
 <td>NaN</td>
 <td>Column 2: UNDESA (2022a).</td>
 <td>NaN</td>
@@ -7677,7 +7689,7 @@ a.anchor-link {
 <td>NaN</td>
 </tr>
 <tr>
-<th>268</th>
+<th>270</th>
 <td>NaN</td>
 <td>Column 3: CEDLAS and World Bank (2022), ICF Ma...</td>
 <td>NaN</td>
@@ -7695,7 +7707,7 @@ a.anchor-link {
 <td>NaN</td>
 </tr>
 <tr>
-<th>269</th>
+<th>271</th>
 <td>NaN</td>
 <td>Column 4: Barro and Lee (2018), ICF Macro Demo...</td>
 <td>NaN</td>
@@ -7713,7 +7725,7 @@ a.anchor-link {
 <td>NaN</td>
 </tr>
 <tr>
-<th>270</th>
+<th>272</th>
 <td>NaN</td>
 <td>Column 5: IMF (2022), UNDESA (2022b), United N...</td>
 <td>NaN</td>
@@ -7731,7 +7743,7 @@ a.anchor-link {
 <td>NaN</td>
 </tr>
 <tr>
-<th>271</th>
+<th>273</th>
 <td>NaN</td>
 <td>Column 6: Calculated based on data in columns ...</td>
 <td>NaN</td>
@@ -7750,11 +7762,11 @@ a.anchor-link {
 </tr>
 </tbody>
 </table>
-<p>272 rows × 15 columns</p>
+<p>274 rows × 15 columns</p>
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-a9112bcf-88e6-46b7-8b8d-88c6ff9d3cce')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-03b71ff0-9448-42bd-9e9d-9c667cb32d76')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -7801,12 +7813,12 @@ a.anchor-link {
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-a9112bcf-88e6-46b7-8b8d-88c6ff9d3cce button.colab-df-convert');
+        document.querySelector('#df-03b71ff0-9448-42bd-9e9d-9c667cb32d76 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-a9112bcf-88e6-46b7-8b8d-88c6ff9d3cce');
+        const element = document.querySelector('#df-03b71ff0-9448-42bd-9e9d-9c667cb32d76');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -7824,8 +7836,8 @@ a.anchor-link {
       }
     </script>
 </div>
-<div id="df-86fbd7df-bf1b-4231-887a-e9f4764a34f5">
-<button class="colab-df-quickchart" onclick="quickchart('df-86fbd7df-bf1b-4231-887a-e9f4764a34f5')" style="display:none;" title="Suggest charts">
+<div id="df-0be4fafd-cf92-4676-8e30-1f932dd06106">
+<button class="colab-df-quickchart" onclick="quickchart('df-0be4fafd-cf92-4676-8e30-1f932dd06106')" style="display:none;" title="Suggest charts">
 <svg height="24px" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
 <g>
 <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"></path>
@@ -7938,13 +7950,13 @@ a.anchor-link {
     }
     (() => {
       let quickchartButtonEl =
-        document.querySelector('#df-86fbd7df-bf1b-4231-887a-e9f4764a34f5 button');
+        document.querySelector('#df-0be4fafd-cf92-4676-8e30-1f932dd06106 button');
       quickchartButtonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
     })();
   </script>
 </div>
-<div id="id_7affbef8-3dba-4e2f-9b0d-7eaae4f4315a">
+<div id="id_67ad1d21-085e-4765-b6fa-79b8170ffda5">
 <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -7984,7 +7996,7 @@ a.anchor-link {
 <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_7affbef8-3dba-4e2f-9b0d-7eaae4f4315a button.colab-df-generate');
+        document.querySelector('#id_67ad1d21-085e-4765-b6fa-79b8170ffda5 button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
@@ -8000,19 +8012,22 @@ a.anchor-link {
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=IKgNC9Mpm6af">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=S3T7IqfFqBcS">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Eliminacion de columnas que tienen nombres NaN en su primera fila, excepto las 2 primeras</span>
-<span class="n">cols_to_keep</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="c1">#Conservacion de las 2 primeras columnas</span>
-<span class="n">data_final</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">data</span><span class="p">[</span><span class="n">cols_to_keep</span><span class="p">],</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1">#</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Eliminar las primeras 4 filas</span>
+<span class="n">data_1</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 
-<span class="n">data_final</span>
+<span class="c1"># Restablecer el índice</span>
+<span class="n">data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Mostrar el DataFrame resultante</span>
+<span class="n">data_1</span>
 </pre></div>
 </div>
 </div>
@@ -8023,9 +8038,9 @@ a.anchor-link {
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[9]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[2]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-0fed609c-fd5a-473f-8f5f-3989629d9343">
+<div class="colab-df-container" id="df-9381f24e-4507-4e94-9603-c6020b086560">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -8044,38 +8059,26 @@ a.anchor-link {
 <thead>
 <tr style="text-align: right;">
 <th></th>
-<th>Unnamed: 0</th>
-<th>Unnamed: 1</th>
-<th>Human Development Index (HDI)</th>
-<th>Life expectancy at birth</th>
-<th>Expected years of schooling</th>
-<th>Mean years of schooling</th>
-<th>Gross national income (GNI) per capita</th>
+<th>HDI rank</th>
+<th>Country</th>
+<th>Human Development Index (HDI)  Value 2021</th>
+<th></th>
+<th>Life expectancy at birth (years) 2021</th>
+<th></th>
+<th>Expected years of schooling (years) 2021</th>
+<th>a</th>
+<th>Mean years of schooling (years) 2021</th>
+<th>a</th>
+<th>Gross national income (GNI) per capita (2017 PPP $) 2021</th>
+<th></th>
+<th>GNI per capita rank minus HDI rank 2021</th>
+<th>b</th>
+<th>HDI rank 2020</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<th>0</th>
-<td>HDI rank</td>
-<td>Country</td>
-<td>Value</td>
-<td>(years)</td>
-<td>(years)</td>
-<td>(years)</td>
-<td>(2017 PPP $)</td>
-</tr>
-<tr>
-<th>1</th>
-<td>NaN</td>
-<td>NaN</td>
-<td>2021</td>
-<td>2021</td>
-<td>2021</td>
-<td>2021</td>
-<td>2021</td>
-</tr>
-<tr>
-<th>2</th>
+<th>4</th>
 <td>NaN</td>
 <td>VERY HIGH HUMAN DEVELOPMENT</td>
 <td>NaN</td>
@@ -8083,26 +8086,86 @@ a.anchor-link {
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
 </tr>
 <tr>
-<th>3</th>
+<th>5</th>
 <td>1</td>
 <td>Switzerland</td>
 <td>0.962</td>
+<td>NaN</td>
 <td>83.9872</td>
+<td>NaN</td>
 <td>16.500299</td>
+<td>NaN</td>
 <td>13.85966</td>
+<td>NaN</td>
 <td>66933.00454</td>
+<td>NaN</td>
+<td>5</td>
+<td>NaN</td>
+<td>3</td>
 </tr>
 <tr>
-<th>4</th>
+<th>6</th>
 <td>2</td>
 <td>Norway</td>
 <td>0.961</td>
+<td>NaN</td>
 <td>83.2339</td>
+<td>NaN</td>
 <td>18.1852</td>
+<td>c</td>
 <td>13.00363</td>
+<td>NaN</td>
 <td>64660.10622</td>
+<td>NaN</td>
+<td>6</td>
+<td>NaN</td>
+<td>1</td>
+</tr>
+<tr>
+<th>7</th>
+<td>3</td>
+<td>Iceland</td>
+<td>0.959</td>
+<td>NaN</td>
+<td>82.6782</td>
+<td>NaN</td>
+<td>19.163059</td>
+<td>c</td>
+<td>13.76717</td>
+<td>NaN</td>
+<td>55782.04981</td>
+<td>NaN</td>
+<td>11</td>
+<td>NaN</td>
+<td>2</td>
+</tr>
+<tr>
+<th>8</th>
+<td>4</td>
+<td>Hong Kong, China (SAR)</td>
+<td>0.952</td>
+<td>NaN</td>
+<td>85.4734</td>
+<td>d</td>
+<td>17.27817</td>
+<td>NaN</td>
+<td>12.22621</td>
+<td>NaN</td>
+<td>62606.8454</td>
+<td>NaN</td>
+<td>6</td>
+<td>NaN</td>
+<td>4</td>
 </tr>
 <tr>
 <th>...</th>
@@ -8113,9 +8176,17 @@ a.anchor-link {
 <td>...</td>
 <td>...</td>
 <td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
 </tr>
 <tr>
-<th>267</th>
+<th>269</th>
 <td>NaN</td>
 <td>Column 2: UNDESA (2022a).</td>
 <td>NaN</td>
@@ -8123,21 +8194,9 @@ a.anchor-link {
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
-</tr>
-<tr>
-<th>268</th>
-<td>NaN</td>
-<td>Column 3: CEDLAS and World Bank (2022), ICF Ma...</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-</tr>
-<tr>
-<th>269</th>
-<td>NaN</td>
-<td>Column 4: Barro and Lee (2018), ICF Macro Demo...</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
@@ -8147,7 +8206,15 @@ a.anchor-link {
 <tr>
 <th>270</th>
 <td>NaN</td>
-<td>Column 5: IMF (2022), UNDESA (2022b), United N...</td>
+<td>Column 3: CEDLAS and World Bank (2022), ICF Ma...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
@@ -8157,7 +8224,51 @@ a.anchor-link {
 <tr>
 <th>271</th>
 <td>NaN</td>
+<td>Column 4: Barro and Lee (2018), ICF Macro Demo...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>272</th>
+<td>NaN</td>
+<td>Column 5: IMF (2022), UNDESA (2022b), United N...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>273</th>
+<td>NaN</td>
 <td>Column 6: Calculated based on data in columns ...</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
@@ -8166,11 +8277,11 @@ a.anchor-link {
 </tr>
 </tbody>
 </table>
-<p>272 rows × 7 columns</p>
+<p>270 rows × 15 columns</p>
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-0fed609c-fd5a-473f-8f5f-3989629d9343')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-9381f24e-4507-4e94-9603-c6020b086560')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -8217,12 +8328,12 @@ a.anchor-link {
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-0fed609c-fd5a-473f-8f5f-3989629d9343 button.colab-df-convert');
+        document.querySelector('#df-9381f24e-4507-4e94-9603-c6020b086560 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-0fed609c-fd5a-473f-8f5f-3989629d9343');
+        const element = document.querySelector('#df-9381f24e-4507-4e94-9603-c6020b086560');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -8240,8 +8351,8 @@ a.anchor-link {
       }
     </script>
 </div>
-<div id="df-2c0005f4-1b8f-49ce-8082-9292d6d779f5">
-<button class="colab-df-quickchart" onclick="quickchart('df-2c0005f4-1b8f-49ce-8082-9292d6d779f5')" style="display:none;" title="Suggest charts">
+<div id="df-b683e53f-9880-4c78-bce5-4ba966280664">
+<button class="colab-df-quickchart" onclick="quickchart('df-b683e53f-9880-4c78-bce5-4ba966280664')" style="display:none;" title="Suggest charts">
 <svg height="24px" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
 <g>
 <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"></path>
@@ -8354,13 +8465,13 @@ a.anchor-link {
     }
     (() => {
       let quickchartButtonEl =
-        document.querySelector('#df-2c0005f4-1b8f-49ce-8082-9292d6d779f5 button');
+        document.querySelector('#df-b683e53f-9880-4c78-bce5-4ba966280664 button');
       quickchartButtonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
     })();
   </script>
 </div>
-<div id="id_e58440b8-730b-434e-af62-36435228e4fe">
+<div id="id_122c7cde-11c0-48e9-847c-a1e403030e36">
 <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -8392,7 +8503,7 @@ a.anchor-link {
         fill: #FFFFFF;
       }
     </style>
-<button class="colab-df-generate" onclick="generateWithVariable('data_final')" style="display:none;" title="Generate code using this dataframe.">
+<button class="colab-df-generate" onclick="generateWithVariable('data_1')" style="display:none;" title="Generate code using this dataframe.">
 <svg height="24px" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
 <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"></path>
 </svg>
@@ -8400,12 +8511,12 @@ a.anchor-link {
 <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_e58440b8-730b-434e-af62-36435228e4fe button.colab-df-generate');
+        document.querySelector('#id_122c7cde-11c0-48e9-847c-a1e403030e36 button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       buttonEl.onclick = () => {
-        google.colab.notebook.generateWithVariable('data_final');
+        google.colab.notebook.generateWithVariable('data_1');
       }
       })();
     </script>
@@ -8416,7 +8527,1939 @@ a.anchor-link {
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=hoy5cD8DzFcq">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=DLgLKygysqQm">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1">#Eliminacion de todas las filas que contengan valores NaN a excepcion de la segunda columna</span>
+<span class="n">data_2</span> <span class="o">=</span> <span class="n">data_1</span><span class="p">[</span><span class="o">~</span><span class="p">(</span><span class="n">data_1</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">data_1</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">())]</span>
+
+<span class="n">data_2</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[3]:</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<div class="colab-df-container" id="df-4c1fbff1-adf1-4755-9ae6-bdce7ecc95b2">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>HDI rank</th>
+<th>Country</th>
+<th>Human Development Index (HDI)  Value 2021</th>
+<th></th>
+<th>Life expectancy at birth (years) 2021</th>
+<th></th>
+<th>Expected years of schooling (years) 2021</th>
+<th>a</th>
+<th>Mean years of schooling (years) 2021</th>
+<th>a</th>
+<th>Gross national income (GNI) per capita (2017 PPP $) 2021</th>
+<th></th>
+<th>GNI per capita rank minus HDI rank 2021</th>
+<th>b</th>
+<th>HDI rank 2020</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>5</th>
+<td>1</td>
+<td>Switzerland</td>
+<td>0.962</td>
+<td>NaN</td>
+<td>83.9872</td>
+<td>NaN</td>
+<td>16.500299</td>
+<td>NaN</td>
+<td>13.85966</td>
+<td>NaN</td>
+<td>66933.00454</td>
+<td>NaN</td>
+<td>5</td>
+<td>NaN</td>
+<td>3</td>
+</tr>
+<tr>
+<th>6</th>
+<td>2</td>
+<td>Norway</td>
+<td>0.961</td>
+<td>NaN</td>
+<td>83.2339</td>
+<td>NaN</td>
+<td>18.1852</td>
+<td>c</td>
+<td>13.00363</td>
+<td>NaN</td>
+<td>64660.10622</td>
+<td>NaN</td>
+<td>6</td>
+<td>NaN</td>
+<td>1</td>
+</tr>
+<tr>
+<th>7</th>
+<td>3</td>
+<td>Iceland</td>
+<td>0.959</td>
+<td>NaN</td>
+<td>82.6782</td>
+<td>NaN</td>
+<td>19.163059</td>
+<td>c</td>
+<td>13.76717</td>
+<td>NaN</td>
+<td>55782.04981</td>
+<td>NaN</td>
+<td>11</td>
+<td>NaN</td>
+<td>2</td>
+</tr>
+<tr>
+<th>8</th>
+<td>4</td>
+<td>Hong Kong, China (SAR)</td>
+<td>0.952</td>
+<td>NaN</td>
+<td>85.4734</td>
+<td>d</td>
+<td>17.27817</td>
+<td>NaN</td>
+<td>12.22621</td>
+<td>NaN</td>
+<td>62606.8454</td>
+<td>NaN</td>
+<td>6</td>
+<td>NaN</td>
+<td>4</td>
+</tr>
+<tr>
+<th>9</th>
+<td>5</td>
+<td>Australia</td>
+<td>0.951</td>
+<td>NaN</td>
+<td>84.5265</td>
+<td>NaN</td>
+<td>21.05459</td>
+<td>c</td>
+<td>12.72682</td>
+<td>NaN</td>
+<td>49238.43335</td>
+<td>NaN</td>
+<td>18</td>
+<td>NaN</td>
+<td>5</td>
+</tr>
+<tr>
+<th>...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr>
+<th>226</th>
+<td>NaN</td>
+<td>World</td>
+<td>0.732</td>
+<td>NaN</td>
+<td>71.365465</td>
+<td>NaN</td>
+<td>12.780907</td>
+<td>NaN</td>
+<td>8.617461</td>
+<td>NaN</td>
+<td>16752.082922</td>
+<td>NaN</td>
+<td>—</td>
+<td>NaN</td>
+<td>—</td>
+</tr>
+<tr>
+<th>227</th>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>256</th>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>257</th>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>266</th>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+<p>220 rows × 15 columns</p>
+</div>
+<div class="colab-df-buttons">
+<div class="colab-df-container">
+<button class="colab-df-convert" onclick="convertToInteractive('df-4c1fbff1-adf1-4755-9ae6-bdce7ecc95b2')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
+<path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
+</svg>
+</button>
+<style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+<script>
+      const buttonEl =
+        document.querySelector('#df-4c1fbff1-adf1-4755-9ae6-bdce7ecc95b2 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-4c1fbff1-adf1-4755-9ae6-bdce7ecc95b2');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+</div>
+<div id="df-2aae3bf0-b667-47c4-992a-b3a93c5ba965">
+<button class="colab-df-quickchart" onclick="quickchart('df-2aae3bf0-b667-47c4-992a-b3a93c5ba965')" style="display:none;" title="Suggest charts">
+<svg height="24px" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
+<g>
+<path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"></path>
+</g>
+</svg>
+</button>
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+<script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-2aae3bf0-b667-47c4-992a-b3a93c5ba965 button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+<div id="id_e4ae3c76-0beb-4b7e-93d6-7dee74c5267f">
+<style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+<button class="colab-df-generate" onclick="generateWithVariable('data_2')" style="display:none;" title="Generate code using this dataframe.">
+<svg height="24px" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
+<path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"></path>
+</svg>
+</button>
+<script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_e4ae3c76-0beb-4b7e-93d6-7dee74c5267f button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('data_2');
+      }
+      })();
+    </script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=mDAQKhcTvdIN">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Eliminación de columnas que contienen NaN en la primera fila</span>
+<span class="n">data_2</span> <span class="o">=</span> <span class="n">data_2</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">data_2</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()]</span>
+
+<span class="c1"># Reiniciar el índice del DataFrame</span>
+<span class="n">data_2</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Mostrar el DataFrame resultante</span>
+<span class="n">data_2</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<div class="colab-df-container" id="df-396b743e-8179-4d31-88b3-92ea190753e9">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>HDI rank</th>
+<th>Country</th>
+<th>Human Development Index (HDI)  Value 2021</th>
+<th>Life expectancy at birth (years) 2021</th>
+<th>Expected years of schooling (years) 2021</th>
+<th>Mean years of schooling (years) 2021</th>
+<th>Gross national income (GNI) per capita (2017 PPP $) 2021</th>
+<th>GNI per capita rank minus HDI rank 2021</th>
+<th>HDI rank 2020</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>1</td>
+<td>Switzerland</td>
+<td>0.962</td>
+<td>83.9872</td>
+<td>16.500299</td>
+<td>13.85966</td>
+<td>66933.00454</td>
+<td>5</td>
+<td>3</td>
+</tr>
+<tr>
+<th>1</th>
+<td>2</td>
+<td>Norway</td>
+<td>0.961</td>
+<td>83.2339</td>
+<td>18.1852</td>
+<td>13.00363</td>
+<td>64660.10622</td>
+<td>6</td>
+<td>1</td>
+</tr>
+<tr>
+<th>2</th>
+<td>3</td>
+<td>Iceland</td>
+<td>0.959</td>
+<td>82.6782</td>
+<td>19.163059</td>
+<td>13.76717</td>
+<td>55782.04981</td>
+<td>11</td>
+<td>2</td>
+</tr>
+<tr>
+<th>3</th>
+<td>4</td>
+<td>Hong Kong, China (SAR)</td>
+<td>0.952</td>
+<td>85.4734</td>
+<td>17.27817</td>
+<td>12.22621</td>
+<td>62606.8454</td>
+<td>6</td>
+<td>4</td>
+</tr>
+<tr>
+<th>4</th>
+<td>5</td>
+<td>Australia</td>
+<td>0.951</td>
+<td>84.5265</td>
+<td>21.05459</td>
+<td>12.72682</td>
+<td>49238.43335</td>
+<td>18</td>
+<td>5</td>
+</tr>
+<tr>
+<th>...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr>
+<th>215</th>
+<td>NaN</td>
+<td>World</td>
+<td>0.732</td>
+<td>71.365465</td>
+<td>12.780907</td>
+<td>8.617461</td>
+<td>16752.082922</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<th>216</th>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>217</th>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>218</th>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>219</th>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+<p>220 rows × 9 columns</p>
+</div>
+<div class="colab-df-buttons">
+<div class="colab-df-container">
+<button class="colab-df-convert" onclick="convertToInteractive('df-396b743e-8179-4d31-88b3-92ea190753e9')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
+<path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
+</svg>
+</button>
+<style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+<script>
+      const buttonEl =
+        document.querySelector('#df-396b743e-8179-4d31-88b3-92ea190753e9 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-396b743e-8179-4d31-88b3-92ea190753e9');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+</div>
+<div id="df-0fd731a1-ee6f-4293-920e-e74c0c4232d1">
+<button class="colab-df-quickchart" onclick="quickchart('df-0fd731a1-ee6f-4293-920e-e74c0c4232d1')" style="display:none;" title="Suggest charts">
+<svg height="24px" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
+<g>
+<path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"></path>
+</g>
+</svg>
+</button>
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+<script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-0fd731a1-ee6f-4293-920e-e74c0c4232d1 button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+<div id="id_95b6da0b-c59b-4044-8260-995f2781d6eb">
+<style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+<button class="colab-df-generate" onclick="generateWithVariable('data_2')" style="display:none;" title="Generate code using this dataframe.">
+<svg height="24px" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
+<path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"></path>
+</svg>
+</button>
+<script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_95b6da0b-c59b-4044-8260-995f2781d6eb button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('data_2');
+      }
+      })();
+    </script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=kZSyI6yuwDPc">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Eliminación de filas donde el primer elemento de la primera columna es NaN</span>
+<span class="n">data_2</span> <span class="o">=</span> <span class="n">data_2</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="n">data_2</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Reiniciar el índice del DataFrame</span>
+<span class="n">data_2</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data_2</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<div class="colab-df-container" id="df-fd940f5d-ba6a-40ed-be2e-728dae6601bf">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>HDI rank</th>
+<th>Country</th>
+<th>Human Development Index (HDI)  Value 2021</th>
+<th>Life expectancy at birth (years) 2021</th>
+<th>Expected years of schooling (years) 2021</th>
+<th>Mean years of schooling (years) 2021</th>
+<th>Gross national income (GNI) per capita (2017 PPP $) 2021</th>
+<th>GNI per capita rank minus HDI rank 2021</th>
+<th>HDI rank 2020</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>1</td>
+<td>Switzerland</td>
+<td>0.962</td>
+<td>83.9872</td>
+<td>16.500299</td>
+<td>13.85966</td>
+<td>66933.00454</td>
+<td>5</td>
+<td>3</td>
+</tr>
+<tr>
+<th>1</th>
+<td>2</td>
+<td>Norway</td>
+<td>0.961</td>
+<td>83.2339</td>
+<td>18.1852</td>
+<td>13.00363</td>
+<td>64660.10622</td>
+<td>6</td>
+<td>1</td>
+</tr>
+<tr>
+<th>2</th>
+<td>3</td>
+<td>Iceland</td>
+<td>0.959</td>
+<td>82.6782</td>
+<td>19.163059</td>
+<td>13.76717</td>
+<td>55782.04981</td>
+<td>11</td>
+<td>2</td>
+</tr>
+<tr>
+<th>3</th>
+<td>4</td>
+<td>Hong Kong, China (SAR)</td>
+<td>0.952</td>
+<td>85.4734</td>
+<td>17.27817</td>
+<td>12.22621</td>
+<td>62606.8454</td>
+<td>6</td>
+<td>4</td>
+</tr>
+<tr>
+<th>4</th>
+<td>5</td>
+<td>Australia</td>
+<td>0.951</td>
+<td>84.5265</td>
+<td>21.05459</td>
+<td>12.72682</td>
+<td>49238.43335</td>
+<td>18</td>
+<td>5</td>
+</tr>
+<tr>
+<th>...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr>
+<th>186</th>
+<td>187</td>
+<td>Burundi</td>
+<td>0.426</td>
+<td>61.6627</td>
+<td>10.722722</td>
+<td>3.129267</td>
+<td>731.786709</td>
+<td>4</td>
+<td>187</td>
+</tr>
+<tr>
+<th>187</th>
+<td>188</td>
+<td>Central African Republic</td>
+<td>0.404</td>
+<td>53.8947</td>
+<td>8.040172</td>
+<td>4.334</td>
+<td>966.058611</td>
+<td>1</td>
+<td>188</td>
+</tr>
+<tr>
+<th>188</th>
+<td>189</td>
+<td>Niger</td>
+<td>0.4</td>
+<td>61.5763</td>
+<td>6.957112</td>
+<td>2.116717</td>
+<td>1239.866936</td>
+<td>-3</td>
+<td>189</td>
+</tr>
+<tr>
+<th>189</th>
+<td>190</td>
+<td>Chad</td>
+<td>0.394</td>
+<td>52.5254</td>
+<td>8.035914</td>
+<td>2.573774</td>
+<td>1364.169417</td>
+<td>-7</td>
+<td>190</td>
+</tr>
+<tr>
+<th>190</th>
+<td>191</td>
+<td>South Sudan</td>
+<td>0.385</td>
+<td>54.9752</td>
+<td>5.54251</td>
+<td>5.72614</td>
+<td>767.787</td>
+<td>-1</td>
+<td>191</td>
+</tr>
+</tbody>
+</table>
+<p>191 rows × 9 columns</p>
+</div>
+<div class="colab-df-buttons">
+<div class="colab-df-container">
+<button class="colab-df-convert" onclick="convertToInteractive('df-fd940f5d-ba6a-40ed-be2e-728dae6601bf')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
+<path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
+</svg>
+</button>
+<style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+<script>
+      const buttonEl =
+        document.querySelector('#df-fd940f5d-ba6a-40ed-be2e-728dae6601bf button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-fd940f5d-ba6a-40ed-be2e-728dae6601bf');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+</div>
+<div id="df-4e44e29b-be14-4e1e-b5a0-f78e20bf63f4">
+<button class="colab-df-quickchart" onclick="quickchart('df-4e44e29b-be14-4e1e-b5a0-f78e20bf63f4')" style="display:none;" title="Suggest charts">
+<svg height="24px" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
+<g>
+<path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"></path>
+</g>
+</svg>
+</button>
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+<script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-4e44e29b-be14-4e1e-b5a0-f78e20bf63f4 button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+<div id="id_5e73569e-1308-4699-a2f3-c009479ec35a">
+<style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+<button class="colab-df-generate" onclick="generateWithVariable('data_2')" style="display:none;" title="Generate code using this dataframe.">
+<svg height="24px" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
+<path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"></path>
+</svg>
+</button>
+<script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_5e73569e-1308-4699-a2f3-c009479ec35a button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('data_2');
+      }
+      })();
+    </script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=Es3KE0TGx-jq">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_2</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 191 entries, 0 to 190
+Data columns (total 9 columns):
+ #   Column                                                    Non-Null Count  Dtype 
+---  ------                                                    --------------  ----- 
+ 0   HDI rank                                                  191 non-null    object
+ 1   Country                                                   191 non-null    object
+ 2   Human Development Index (HDI)  Value 2021                 191 non-null    object
+ 3   Life expectancy at birth (years) 2021                     191 non-null    object
+ 4   Expected years of schooling (years) 2021                  191 non-null    object
+ 5   Mean years of schooling (years) 2021                      191 non-null    object
+ 6   Gross national income (GNI) per capita (2017 PPP $) 2021  191 non-null    object
+ 7   GNI per capita rank minus HDI rank 2021                   191 non-null    object
+ 8   HDI rank 2020                                             191 non-null    object
+dtypes: object(9)
+memory usage: 13.6+ KB
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=FUW_hbXj0bt_">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Convertir las columnas de la 3 a la 7 a float64</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">data_2</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">7</span><span class="p">]:</span>  <span class="c1"># Índices de columna 2 a 6 (3 a 7)</span>
+    <span class="n">data_2</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">data_2</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">'coerce'</span><span class="p">)</span>  <span class="c1"># Convertir a float64</span>
+
+<span class="c1"># Verificar el resultado</span>
+<span class="n">data_2</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
+<pre>&lt;ipython-input-7-01d847c87520&gt;:3: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  data_2[col] = pd.to_numeric(data_2[col], errors='coerce')  # Convertir a float64
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[7]:</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<div class="colab-df-container" id="df-35dd0f37-2336-4433-bc14-cedb05bbb407">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>HDI rank</th>
+<th>Country</th>
+<th>Human Development Index (HDI)  Value 2021</th>
+<th>Life expectancy at birth (years) 2021</th>
+<th>Expected years of schooling (years) 2021</th>
+<th>Mean years of schooling (years) 2021</th>
+<th>Gross national income (GNI) per capita (2017 PPP $) 2021</th>
+<th>GNI per capita rank minus HDI rank 2021</th>
+<th>HDI rank 2020</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>1</td>
+<td>Switzerland</td>
+<td>0.962</td>
+<td>83.9872</td>
+<td>16.500299</td>
+<td>13.859660</td>
+<td>66933.004540</td>
+<td>5</td>
+<td>3</td>
+</tr>
+<tr>
+<th>1</th>
+<td>2</td>
+<td>Norway</td>
+<td>0.961</td>
+<td>83.2339</td>
+<td>18.185200</td>
+<td>13.003630</td>
+<td>64660.106220</td>
+<td>6</td>
+<td>1</td>
+</tr>
+<tr>
+<th>2</th>
+<td>3</td>
+<td>Iceland</td>
+<td>0.959</td>
+<td>82.6782</td>
+<td>19.163059</td>
+<td>13.767170</td>
+<td>55782.049810</td>
+<td>11</td>
+<td>2</td>
+</tr>
+<tr>
+<th>3</th>
+<td>4</td>
+<td>Hong Kong, China (SAR)</td>
+<td>0.952</td>
+<td>85.4734</td>
+<td>17.278170</td>
+<td>12.226210</td>
+<td>62606.845400</td>
+<td>6</td>
+<td>4</td>
+</tr>
+<tr>
+<th>4</th>
+<td>5</td>
+<td>Australia</td>
+<td>0.951</td>
+<td>84.5265</td>
+<td>21.054590</td>
+<td>12.726820</td>
+<td>49238.433350</td>
+<td>18</td>
+<td>5</td>
+</tr>
+<tr>
+<th>...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr>
+<th>186</th>
+<td>187</td>
+<td>Burundi</td>
+<td>0.426</td>
+<td>61.6627</td>
+<td>10.722722</td>
+<td>3.129267</td>
+<td>731.786709</td>
+<td>4</td>
+<td>187</td>
+</tr>
+<tr>
+<th>187</th>
+<td>188</td>
+<td>Central African Republic</td>
+<td>0.404</td>
+<td>53.8947</td>
+<td>8.040172</td>
+<td>4.334000</td>
+<td>966.058611</td>
+<td>1</td>
+<td>188</td>
+</tr>
+<tr>
+<th>188</th>
+<td>189</td>
+<td>Niger</td>
+<td>0.400</td>
+<td>61.5763</td>
+<td>6.957112</td>
+<td>2.116717</td>
+<td>1239.866936</td>
+<td>-3</td>
+<td>189</td>
+</tr>
+<tr>
+<th>189</th>
+<td>190</td>
+<td>Chad</td>
+<td>0.394</td>
+<td>52.5254</td>
+<td>8.035914</td>
+<td>2.573774</td>
+<td>1364.169417</td>
+<td>-7</td>
+<td>190</td>
+</tr>
+<tr>
+<th>190</th>
+<td>191</td>
+<td>South Sudan</td>
+<td>0.385</td>
+<td>54.9752</td>
+<td>5.542510</td>
+<td>5.726140</td>
+<td>767.787000</td>
+<td>-1</td>
+<td>191</td>
+</tr>
+</tbody>
+</table>
+<p>191 rows × 9 columns</p>
+</div>
+<div class="colab-df-buttons">
+<div class="colab-df-container">
+<button class="colab-df-convert" onclick="convertToInteractive('df-35dd0f37-2336-4433-bc14-cedb05bbb407')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
+<path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
+</svg>
+</button>
+<style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+<script>
+      const buttonEl =
+        document.querySelector('#df-35dd0f37-2336-4433-bc14-cedb05bbb407 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-35dd0f37-2336-4433-bc14-cedb05bbb407');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+</div>
+<div id="df-396131c2-6ca3-40e1-9f34-e5974ea713da">
+<button class="colab-df-quickchart" onclick="quickchart('df-396131c2-6ca3-40e1-9f34-e5974ea713da')" style="display:none;" title="Suggest charts">
+<svg height="24px" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
+<g>
+<path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"></path>
+</g>
+</svg>
+</button>
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+<script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-396131c2-6ca3-40e1-9f34-e5974ea713da button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+<div id="id_dce25f37-25c1-4a6a-a583-9fe1449febf9">
+<style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+<button class="colab-df-generate" onclick="generateWithVariable('data_2')" style="display:none;" title="Generate code using this dataframe.">
+<svg height="24px" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
+<path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"></path>
+</svg>
+</button>
+<script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_dce25f37-25c1-4a6a-a583-9fe1449febf9 button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('data_2');
+      }
+      })();
+    </script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=XzcvLh9l1C0w">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_2</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 191 entries, 0 to 190
+Data columns (total 9 columns):
+ #   Column                                                    Non-Null Count  Dtype  
+---  ------                                                    --------------  -----  
+ 0   HDI rank                                                  191 non-null    object 
+ 1   Country                                                   191 non-null    object 
+ 2   Human Development Index (HDI)  Value 2021                 191 non-null    float64
+ 3   Life expectancy at birth (years) 2021                     191 non-null    float64
+ 4   Expected years of schooling (years) 2021                  191 non-null    float64
+ 5   Mean years of schooling (years) 2021                      191 non-null    float64
+ 6   Gross national income (GNI) per capita (2017 PPP $) 2021  191 non-null    float64
+ 7   GNI per capita rank minus HDI rank 2021                   191 non-null    object 
+ 8   HDI rank 2020                                             191 non-null    object 
+dtypes: float64(5), object(4)
+memory usage: 13.6+ KB
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=tPK8_Qwm1FXg">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8424,10 +10467,12 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1">#Eliminacion de todas las filas que contengan valores NaN a excepcion de la segunda columna</span>
-<span class="n">data_depurada</span> <span class="o">=</span> <span class="n">data_final</span><span class="p">[</span><span class="o">~</span><span class="p">(</span><span class="n">data_final</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">data_final</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">())]</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Arreglamos el error de lectura de la columna 7, ya que el python lo leyo como "," 1,500 del excel, aca lo lee como 1500.0</span>
+<span class="c1"># Dividir todos los elementos de la columna 7 entre 1000</span>
+<span class="n">data_2</span><span class="p">[</span><span class="n">data_2</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">6</span><span class="p">]]</span> <span class="o">=</span> <span class="n">data_2</span><span class="p">[</span><span class="n">data_2</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">6</span><span class="p">]]</span> <span class="o">/</span> <span class="mi">1000</span>
 
-<span class="n">data_depurada</span>
+<span class="c1"># Verificar el resultado</span>
+<span class="n">data_2</span>
 </pre></div>
 </div>
 </div>
@@ -8437,10 +10482,22 @@ a.anchor-link {
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
+<pre>&lt;ipython-input-10-ddb7a34bea7b&gt;:3: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  data_2[data_2.columns[6]] = data_2[data_2.columns[6]] / 1000
+</pre>
+</div>
+</div>
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
 <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[10]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-f60fdbcd-844b-4b26-b9bb-cbd44f0545f8">
+<div class="colab-df-container" id="df-1fa77b05-05f3-4b22-962c-5a940e3a842c">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -8459,65 +10516,77 @@ a.anchor-link {
 <thead>
 <tr style="text-align: right;">
 <th></th>
-<th>Unnamed: 0</th>
-<th>Unnamed: 1</th>
-<th>Human Development Index (HDI)</th>
-<th>Life expectancy at birth</th>
-<th>Expected years of schooling</th>
-<th>Mean years of schooling</th>
-<th>Gross national income (GNI) per capita</th>
+<th>HDI rank</th>
+<th>Country</th>
+<th>Human Development Index (HDI)  Value 2021</th>
+<th>Life expectancy at birth (years) 2021</th>
+<th>Expected years of schooling (years) 2021</th>
+<th>Mean years of schooling (years) 2021</th>
+<th>Gross national income (GNI) per capita (2017 PPP $) 2021</th>
+<th>GNI per capita rank minus HDI rank 2021</th>
+<th>HDI rank 2020</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <th>0</th>
-<td>HDI rank</td>
-<td>Country</td>
-<td>Value</td>
-<td>(years)</td>
-<td>(years)</td>
-<td>(years)</td>
-<td>(2017 PPP $)</td>
-</tr>
-<tr>
-<th>1</th>
-<td>NaN</td>
-<td>NaN</td>
-<td>2021</td>
-<td>2021</td>
-<td>2021</td>
-<td>2021</td>
-<td>2021</td>
-</tr>
-<tr>
-<th>3</th>
 <td>1</td>
 <td>Switzerland</td>
 <td>0.962</td>
 <td>83.9872</td>
 <td>16.500299</td>
-<td>13.85966</td>
-<td>66933.00454</td>
+<td>13.859660</td>
+<td>66.933005</td>
+<td>5</td>
+<td>3</td>
 </tr>
 <tr>
-<th>4</th>
+<th>1</th>
 <td>2</td>
 <td>Norway</td>
 <td>0.961</td>
 <td>83.2339</td>
-<td>18.1852</td>
-<td>13.00363</td>
-<td>64660.10622</td>
+<td>18.185200</td>
+<td>13.003630</td>
+<td>64.660106</td>
+<td>6</td>
+<td>1</td>
 </tr>
 <tr>
-<th>5</th>
+<th>2</th>
 <td>3</td>
 <td>Iceland</td>
 <td>0.959</td>
 <td>82.6782</td>
 <td>19.163059</td>
-<td>13.76717</td>
-<td>55782.04981</td>
+<td>13.767170</td>
+<td>55.782050</td>
+<td>11</td>
+<td>2</td>
+</tr>
+<tr>
+<th>3</th>
+<td>4</td>
+<td>Hong Kong, China (SAR)</td>
+<td>0.952</td>
+<td>85.4734</td>
+<td>17.278170</td>
+<td>12.226210</td>
+<td>62.606845</td>
+<td>6</td>
+<td>4</td>
+</tr>
+<tr>
+<th>4</th>
+<td>5</td>
+<td>Australia</td>
+<td>0.951</td>
+<td>84.5265</td>
+<td>21.054590</td>
+<td>12.726820</td>
+<td>49.238433</td>
+<td>18</td>
+<td>5</td>
 </tr>
 <tr>
 <th>...</th>
@@ -8528,64 +10597,76 @@ a.anchor-link {
 <td>...</td>
 <td>...</td>
 <td>...</td>
+<td>...</td>
+<td>...</td>
 </tr>
 <tr>
-<th>224</th>
-<td>NaN</td>
-<td>World</td>
-<td>0.732</td>
-<td>71.365465</td>
-<td>12.780907</td>
-<td>8.617461</td>
-<td>16752.082922</td>
+<th>186</th>
+<td>187</td>
+<td>Burundi</td>
+<td>0.426</td>
+<td>61.6627</td>
+<td>10.722722</td>
+<td>3.129267</td>
+<td>0.731787</td>
+<td>4</td>
+<td>187</td>
 </tr>
 <tr>
-<th>225</th>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
+<th>187</th>
+<td>188</td>
+<td>Central African Republic</td>
+<td>0.404</td>
+<td>53.8947</td>
+<td>8.040172</td>
+<td>4.334000</td>
+<td>0.966059</td>
+<td>1</td>
+<td>188</td>
 </tr>
 <tr>
-<th>254</th>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
+<th>188</th>
+<td>189</td>
+<td>Niger</td>
+<td>0.400</td>
+<td>61.5763</td>
+<td>6.957112</td>
+<td>2.116717</td>
+<td>1.239867</td>
+<td>-3</td>
+<td>189</td>
 </tr>
 <tr>
-<th>255</th>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
+<th>189</th>
+<td>190</td>
+<td>Chad</td>
+<td>0.394</td>
+<td>52.5254</td>
+<td>8.035914</td>
+<td>2.573774</td>
+<td>1.364169</td>
+<td>-7</td>
+<td>190</td>
 </tr>
 <tr>
-<th>264</th>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
+<th>190</th>
+<td>191</td>
+<td>South Sudan</td>
+<td>0.385</td>
+<td>54.9752</td>
+<td>5.542510</td>
+<td>5.726140</td>
+<td>0.767787</td>
+<td>-1</td>
+<td>191</td>
 </tr>
 </tbody>
 </table>
-<p>222 rows × 7 columns</p>
+<p>191 rows × 9 columns</p>
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-f60fdbcd-844b-4b26-b9bb-cbd44f0545f8')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-1fa77b05-05f3-4b22-962c-5a940e3a842c')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -8632,12 +10713,12 @@ a.anchor-link {
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-f60fdbcd-844b-4b26-b9bb-cbd44f0545f8 button.colab-df-convert');
+        document.querySelector('#df-1fa77b05-05f3-4b22-962c-5a940e3a842c button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-f60fdbcd-844b-4b26-b9bb-cbd44f0545f8');
+        const element = document.querySelector('#df-1fa77b05-05f3-4b22-962c-5a940e3a842c');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -8655,8 +10736,8 @@ a.anchor-link {
       }
     </script>
 </div>
-<div id="df-7d91bc3e-0f7c-4cbd-9532-bb4c04929ccc">
-<button class="colab-df-quickchart" onclick="quickchart('df-7d91bc3e-0f7c-4cbd-9532-bb4c04929ccc')" style="display:none;" title="Suggest charts">
+<div id="df-cce85899-faf0-4f2f-a5f1-1bcc663229e7">
+<button class="colab-df-quickchart" onclick="quickchart('df-cce85899-faf0-4f2f-a5f1-1bcc663229e7')" style="display:none;" title="Suggest charts">
 <svg height="24px" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
 <g>
 <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"></path>
@@ -8769,13 +10850,13 @@ a.anchor-link {
     }
     (() => {
       let quickchartButtonEl =
-        document.querySelector('#df-7d91bc3e-0f7c-4cbd-9532-bb4c04929ccc button');
+        document.querySelector('#df-cce85899-faf0-4f2f-a5f1-1bcc663229e7 button');
       quickchartButtonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
     })();
   </script>
 </div>
-<div id="id_ceeb1cd9-cb32-425b-83e0-79742da8ba1f">
+<div id="id_654e8ef2-5008-4c44-962c-9b52c566f3f8">
 <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -8807,7 +10888,7 @@ a.anchor-link {
         fill: #FFFFFF;
       }
     </style>
-<button class="colab-df-generate" onclick="generateWithVariable('data_depurada')" style="display:none;" title="Generate code using this dataframe.">
+<button class="colab-df-generate" onclick="generateWithVariable('data_2')" style="display:none;" title="Generate code using this dataframe.">
 <svg height="24px" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
 <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"></path>
 </svg>
@@ -8815,12 +10896,12 @@ a.anchor-link {
 <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_ceeb1cd9-cb32-425b-83e0-79742da8ba1f button.colab-df-generate');
+        document.querySelector('#id_654e8ef2-5008-4c44-962c-9b52c566f3f8 button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       buttonEl.onclick = () => {
-        google.colab.notebook.generateWithVariable('data_depurada');
+        google.colab.notebook.generateWithVariable('data_2');
       }
       })();
     </script>
@@ -8831,1251 +10912,7 @@ a.anchor-link {
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=jCMVSNu23DJk">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1">#Eliminacion de filas que contengan solo valores NaN</span>
-
-<span class="n">data_depurada</span> <span class="o">=</span> <span class="n">data_depurada</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s1">'all'</span><span class="p">)</span>
-<span class="n">data_depurada</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[11]:</div>
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-bf3d9a51-6ef1-430d-a347-88450a8dae85">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th></th>
-<th>Unnamed: 0</th>
-<th>Unnamed: 1</th>
-<th>Human Development Index (HDI)</th>
-<th>Life expectancy at birth</th>
-<th>Expected years of schooling</th>
-<th>Mean years of schooling</th>
-<th>Gross national income (GNI) per capita</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th>0</th>
-<td>HDI rank</td>
-<td>Country</td>
-<td>Value</td>
-<td>(years)</td>
-<td>(years)</td>
-<td>(years)</td>
-<td>(2017 PPP $)</td>
-</tr>
-<tr>
-<th>1</th>
-<td>NaN</td>
-<td>NaN</td>
-<td>2021</td>
-<td>2021</td>
-<td>2021</td>
-<td>2021</td>
-<td>2021</td>
-</tr>
-<tr>
-<th>3</th>
-<td>1</td>
-<td>Switzerland</td>
-<td>0.962</td>
-<td>83.9872</td>
-<td>16.500299</td>
-<td>13.85966</td>
-<td>66933.00454</td>
-</tr>
-<tr>
-<th>4</th>
-<td>2</td>
-<td>Norway</td>
-<td>0.961</td>
-<td>83.2339</td>
-<td>18.1852</td>
-<td>13.00363</td>
-<td>64660.10622</td>
-</tr>
-<tr>
-<th>5</th>
-<td>3</td>
-<td>Iceland</td>
-<td>0.959</td>
-<td>82.6782</td>
-<td>19.163059</td>
-<td>13.76717</td>
-<td>55782.04981</td>
-</tr>
-<tr>
-<th>...</th>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr>
-<th>217</th>
-<td>NaN</td>
-<td>Sub-Saharan Africa</td>
-<td>0.547</td>
-<td>60.112467</td>
-<td>10.267338</td>
-<td>6.001639</td>
-<td>3698.868914</td>
-</tr>
-<tr>
-<th>219</th>
-<td>NaN</td>
-<td>Least developed countries</td>
-<td>0.54</td>
-<td>64.215856</td>
-<td>10.182659</td>
-<td>5.21532</td>
-<td>2880.652487</td>
-</tr>
-<tr>
-<th>220</th>
-<td>NaN</td>
-<td>Small island developing states</td>
-<td>0.73</td>
-<td>70.325547</td>
-<td>12.422289</td>
-<td>9.08964</td>
-<td>16782.329527</td>
-</tr>
-<tr>
-<th>222</th>
-<td>NaN</td>
-<td>Organisation for Economic Co-operation and Dev...</td>
-<td>0.899</td>
-<td>78.987605</td>
-<td>16.459253</td>
-<td>12.267755</td>
-<td>45086.969067</td>
-</tr>
-<tr>
-<th>224</th>
-<td>NaN</td>
-<td>World</td>
-<td>0.732</td>
-<td>71.365465</td>
-<td>12.780907</td>
-<td>8.617461</td>
-<td>16752.082922</td>
-</tr>
-</tbody>
-</table>
-<p>212 rows × 7 columns</p>
-</div>
-<div class="colab-df-buttons">
-<div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-bf3d9a51-6ef1-430d-a347-88450a8dae85')" style="display:none;" title="Convert this dataframe to an interactive table.">
-<svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
-<path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
-</svg>
-</button>
-<style>
-    .colab-df-container {
-      display:flex;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    .colab-df-buttons div {
-      margin-bottom: 4px;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-<script>
-      const buttonEl =
-        document.querySelector('#df-bf3d9a51-6ef1-430d-a347-88450a8dae85 button.colab-df-convert');
-      buttonEl.style.display =
-        google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-      async function convertToInteractive(key) {
-        const element = document.querySelector('#df-bf3d9a51-6ef1-430d-a347-88450a8dae85');
-        const dataTable =
-          await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                    [key], {});
-        if (!dataTable) return;
-
-        const docLinkHtml = 'Like what you see? Visit the ' +
-          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-          + ' to learn more about interactive tables.';
-        element.innerHTML = '';
-        dataTable['output_type'] = 'display_data';
-        await google.colab.output.renderOutput(dataTable, element);
-        const docLink = document.createElement('div');
-        docLink.innerHTML = docLinkHtml;
-        element.appendChild(docLink);
-      }
-    </script>
-</div>
-<div id="df-ecd126ce-6b18-4576-9e54-fef54bc2fec1">
-<button class="colab-df-quickchart" onclick="quickchart('df-ecd126ce-6b18-4576-9e54-fef54bc2fec1')" style="display:none;" title="Suggest charts">
-<svg height="24px" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
-<g>
-<path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"></path>
-</g>
-</svg>
-</button>
-<style>
-  .colab-df-quickchart {
-      --bg-color: #E8F0FE;
-      --fill-color: #1967D2;
-      --hover-bg-color: #E2EBFA;
-      --hover-fill-color: #174EA6;
-      --disabled-fill-color: #AAA;
-      --disabled-bg-color: #DDD;
-  }
-
-  [theme=dark] .colab-df-quickchart {
-      --bg-color: #3B4455;
-      --fill-color: #D2E3FC;
-      --hover-bg-color: #434B5C;
-      --hover-fill-color: #FFFFFF;
-      --disabled-bg-color: #3B4455;
-      --disabled-fill-color: #666;
-  }
-
-  .colab-df-quickchart {
-    background-color: var(--bg-color);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: none;
-    fill: var(--fill-color);
-    height: 32px;
-    padding: 0;
-    width: 32px;
-  }
-
-  .colab-df-quickchart:hover {
-    background-color: var(--hover-bg-color);
-    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
-    fill: var(--button-hover-fill-color);
-  }
-
-  .colab-df-quickchart-complete:disabled,
-  .colab-df-quickchart-complete:disabled:hover {
-    background-color: var(--disabled-bg-color);
-    fill: var(--disabled-fill-color);
-    box-shadow: none;
-  }
-
-  .colab-df-spinner {
-    border: 2px solid var(--fill-color);
-    border-color: transparent;
-    border-bottom-color: var(--fill-color);
-    animation:
-      spin 1s steps(1) infinite;
-  }
-
-  @keyframes spin {
-    0% {
-      border-color: transparent;
-      border-bottom-color: var(--fill-color);
-      border-left-color: var(--fill-color);
-    }
-    20% {
-      border-color: transparent;
-      border-left-color: var(--fill-color);
-      border-top-color: var(--fill-color);
-    }
-    30% {
-      border-color: transparent;
-      border-left-color: var(--fill-color);
-      border-top-color: var(--fill-color);
-      border-right-color: var(--fill-color);
-    }
-    40% {
-      border-color: transparent;
-      border-right-color: var(--fill-color);
-      border-top-color: var(--fill-color);
-    }
-    60% {
-      border-color: transparent;
-      border-right-color: var(--fill-color);
-    }
-    80% {
-      border-color: transparent;
-      border-right-color: var(--fill-color);
-      border-bottom-color: var(--fill-color);
-    }
-    90% {
-      border-color: transparent;
-      border-bottom-color: var(--fill-color);
-    }
-  }
-</style>
-<script>
-    async function quickchart(key) {
-      const quickchartButtonEl =
-        document.querySelector('#' + key + ' button');
-      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
-      quickchartButtonEl.classList.add('colab-df-spinner');
-      try {
-        const charts = await google.colab.kernel.invokeFunction(
-            'suggestCharts', [key], {});
-      } catch (error) {
-        console.error('Error during call to suggestCharts:', error);
-      }
-      quickchartButtonEl.classList.remove('colab-df-spinner');
-      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
-    }
-    (() => {
-      let quickchartButtonEl =
-        document.querySelector('#df-ecd126ce-6b18-4576-9e54-fef54bc2fec1 button');
-      quickchartButtonEl.style.display =
-        google.colab.kernel.accessAllowed ? 'block' : 'none';
-    })();
-  </script>
-</div>
-<div id="id_0df1e732-b67c-4d03-abcc-ba6250533f01">
-<style>
-      .colab-df-generate {
-        background-color: #E8F0FE;
-        border: none;
-        border-radius: 50%;
-        cursor: pointer;
-        display: none;
-        fill: #1967D2;
-        height: 32px;
-        padding: 0 0 0 0;
-        width: 32px;
-      }
-
-      .colab-df-generate:hover {
-        background-color: #E2EBFA;
-        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-        fill: #174EA6;
-      }
-
-      [theme=dark] .colab-df-generate {
-        background-color: #3B4455;
-        fill: #D2E3FC;
-      }
-
-      [theme=dark] .colab-df-generate:hover {
-        background-color: #434B5C;
-        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-        fill: #FFFFFF;
-      }
-    </style>
-<button class="colab-df-generate" onclick="generateWithVariable('data_depurada')" style="display:none;" title="Generate code using this dataframe.">
-<svg height="24px" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
-<path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"></path>
-</svg>
-</button>
-<script>
-      (() => {
-      const buttonEl =
-        document.querySelector('#id_0df1e732-b67c-4d03-abcc-ba6250533f01 button.colab-df-generate');
-      buttonEl.style.display =
-        google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-      buttonEl.onclick = () => {
-        google.colab.notebook.generateWithVariable('data_depurada');
-      }
-      })();
-    </script>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=OA52s9hi6HA1">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1">#Reemplzamos celdas que tengan valores NaN como espacios en blanco</span>
-<span class="n">data_depurada</span> <span class="o">=</span> <span class="n">data_depurada</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">''</span><span class="p">)</span>
-
-<span class="n">data_depurada</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[12]:</div>
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-820c00fb-3621-42f8-a131-13db6adad499">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th></th>
-<th>Unnamed: 0</th>
-<th>Unnamed: 1</th>
-<th>Human Development Index (HDI)</th>
-<th>Life expectancy at birth</th>
-<th>Expected years of schooling</th>
-<th>Mean years of schooling</th>
-<th>Gross national income (GNI) per capita</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th>0</th>
-<td>HDI rank</td>
-<td>Country</td>
-<td>Value</td>
-<td>(years)</td>
-<td>(years)</td>
-<td>(years)</td>
-<td>(2017 PPP $)</td>
-</tr>
-<tr>
-<th>1</th>
-<td></td>
-<td></td>
-<td>2021</td>
-<td>2021</td>
-<td>2021</td>
-<td>2021</td>
-<td>2021</td>
-</tr>
-<tr>
-<th>3</th>
-<td>1</td>
-<td>Switzerland</td>
-<td>0.962</td>
-<td>83.9872</td>
-<td>16.500299</td>
-<td>13.85966</td>
-<td>66933.00454</td>
-</tr>
-<tr>
-<th>4</th>
-<td>2</td>
-<td>Norway</td>
-<td>0.961</td>
-<td>83.2339</td>
-<td>18.1852</td>
-<td>13.00363</td>
-<td>64660.10622</td>
-</tr>
-<tr>
-<th>5</th>
-<td>3</td>
-<td>Iceland</td>
-<td>0.959</td>
-<td>82.6782</td>
-<td>19.163059</td>
-<td>13.76717</td>
-<td>55782.04981</td>
-</tr>
-<tr>
-<th>...</th>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr>
-<th>217</th>
-<td></td>
-<td>Sub-Saharan Africa</td>
-<td>0.547</td>
-<td>60.112467</td>
-<td>10.267338</td>
-<td>6.001639</td>
-<td>3698.868914</td>
-</tr>
-<tr>
-<th>219</th>
-<td></td>
-<td>Least developed countries</td>
-<td>0.54</td>
-<td>64.215856</td>
-<td>10.182659</td>
-<td>5.21532</td>
-<td>2880.652487</td>
-</tr>
-<tr>
-<th>220</th>
-<td></td>
-<td>Small island developing states</td>
-<td>0.73</td>
-<td>70.325547</td>
-<td>12.422289</td>
-<td>9.08964</td>
-<td>16782.329527</td>
-</tr>
-<tr>
-<th>222</th>
-<td></td>
-<td>Organisation for Economic Co-operation and Dev...</td>
-<td>0.899</td>
-<td>78.987605</td>
-<td>16.459253</td>
-<td>12.267755</td>
-<td>45086.969067</td>
-</tr>
-<tr>
-<th>224</th>
-<td></td>
-<td>World</td>
-<td>0.732</td>
-<td>71.365465</td>
-<td>12.780907</td>
-<td>8.617461</td>
-<td>16752.082922</td>
-</tr>
-</tbody>
-</table>
-<p>212 rows × 7 columns</p>
-</div>
-<div class="colab-df-buttons">
-<div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-820c00fb-3621-42f8-a131-13db6adad499')" style="display:none;" title="Convert this dataframe to an interactive table.">
-<svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
-<path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
-</svg>
-</button>
-<style>
-    .colab-df-container {
-      display:flex;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    .colab-df-buttons div {
-      margin-bottom: 4px;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-<script>
-      const buttonEl =
-        document.querySelector('#df-820c00fb-3621-42f8-a131-13db6adad499 button.colab-df-convert');
-      buttonEl.style.display =
-        google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-      async function convertToInteractive(key) {
-        const element = document.querySelector('#df-820c00fb-3621-42f8-a131-13db6adad499');
-        const dataTable =
-          await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                    [key], {});
-        if (!dataTable) return;
-
-        const docLinkHtml = 'Like what you see? Visit the ' +
-          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-          + ' to learn more about interactive tables.';
-        element.innerHTML = '';
-        dataTable['output_type'] = 'display_data';
-        await google.colab.output.renderOutput(dataTable, element);
-        const docLink = document.createElement('div');
-        docLink.innerHTML = docLinkHtml;
-        element.appendChild(docLink);
-      }
-    </script>
-</div>
-<div id="df-1dbd71a8-8770-4980-9b7d-db33f7d361e9">
-<button class="colab-df-quickchart" onclick="quickchart('df-1dbd71a8-8770-4980-9b7d-db33f7d361e9')" style="display:none;" title="Suggest charts">
-<svg height="24px" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
-<g>
-<path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"></path>
-</g>
-</svg>
-</button>
-<style>
-  .colab-df-quickchart {
-      --bg-color: #E8F0FE;
-      --fill-color: #1967D2;
-      --hover-bg-color: #E2EBFA;
-      --hover-fill-color: #174EA6;
-      --disabled-fill-color: #AAA;
-      --disabled-bg-color: #DDD;
-  }
-
-  [theme=dark] .colab-df-quickchart {
-      --bg-color: #3B4455;
-      --fill-color: #D2E3FC;
-      --hover-bg-color: #434B5C;
-      --hover-fill-color: #FFFFFF;
-      --disabled-bg-color: #3B4455;
-      --disabled-fill-color: #666;
-  }
-
-  .colab-df-quickchart {
-    background-color: var(--bg-color);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: none;
-    fill: var(--fill-color);
-    height: 32px;
-    padding: 0;
-    width: 32px;
-  }
-
-  .colab-df-quickchart:hover {
-    background-color: var(--hover-bg-color);
-    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
-    fill: var(--button-hover-fill-color);
-  }
-
-  .colab-df-quickchart-complete:disabled,
-  .colab-df-quickchart-complete:disabled:hover {
-    background-color: var(--disabled-bg-color);
-    fill: var(--disabled-fill-color);
-    box-shadow: none;
-  }
-
-  .colab-df-spinner {
-    border: 2px solid var(--fill-color);
-    border-color: transparent;
-    border-bottom-color: var(--fill-color);
-    animation:
-      spin 1s steps(1) infinite;
-  }
-
-  @keyframes spin {
-    0% {
-      border-color: transparent;
-      border-bottom-color: var(--fill-color);
-      border-left-color: var(--fill-color);
-    }
-    20% {
-      border-color: transparent;
-      border-left-color: var(--fill-color);
-      border-top-color: var(--fill-color);
-    }
-    30% {
-      border-color: transparent;
-      border-left-color: var(--fill-color);
-      border-top-color: var(--fill-color);
-      border-right-color: var(--fill-color);
-    }
-    40% {
-      border-color: transparent;
-      border-right-color: var(--fill-color);
-      border-top-color: var(--fill-color);
-    }
-    60% {
-      border-color: transparent;
-      border-right-color: var(--fill-color);
-    }
-    80% {
-      border-color: transparent;
-      border-right-color: var(--fill-color);
-      border-bottom-color: var(--fill-color);
-    }
-    90% {
-      border-color: transparent;
-      border-bottom-color: var(--fill-color);
-    }
-  }
-</style>
-<script>
-    async function quickchart(key) {
-      const quickchartButtonEl =
-        document.querySelector('#' + key + ' button');
-      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
-      quickchartButtonEl.classList.add('colab-df-spinner');
-      try {
-        const charts = await google.colab.kernel.invokeFunction(
-            'suggestCharts', [key], {});
-      } catch (error) {
-        console.error('Error during call to suggestCharts:', error);
-      }
-      quickchartButtonEl.classList.remove('colab-df-spinner');
-      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
-    }
-    (() => {
-      let quickchartButtonEl =
-        document.querySelector('#df-1dbd71a8-8770-4980-9b7d-db33f7d361e9 button');
-      quickchartButtonEl.style.display =
-        google.colab.kernel.accessAllowed ? 'block' : 'none';
-    })();
-  </script>
-</div>
-<div id="id_79ef0d4f-0de0-4518-957c-4faaff4d8e23">
-<style>
-      .colab-df-generate {
-        background-color: #E8F0FE;
-        border: none;
-        border-radius: 50%;
-        cursor: pointer;
-        display: none;
-        fill: #1967D2;
-        height: 32px;
-        padding: 0 0 0 0;
-        width: 32px;
-      }
-
-      .colab-df-generate:hover {
-        background-color: #E2EBFA;
-        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-        fill: #174EA6;
-      }
-
-      [theme=dark] .colab-df-generate {
-        background-color: #3B4455;
-        fill: #D2E3FC;
-      }
-
-      [theme=dark] .colab-df-generate:hover {
-        background-color: #434B5C;
-        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-        fill: #FFFFFF;
-      }
-    </style>
-<button class="colab-df-generate" onclick="generateWithVariable('data_depurada')" style="display:none;" title="Generate code using this dataframe.">
-<svg height="24px" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
-<path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"></path>
-</svg>
-</button>
-<script>
-      (() => {
-      const buttonEl =
-        document.querySelector('#id_79ef0d4f-0de0-4518-957c-4faaff4d8e23 button.colab-df-generate');
-      buttonEl.style.display =
-        google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-      buttonEl.onclick = () => {
-        google.colab.notebook.generateWithVariable('data_depurada');
-      }
-      })();
-    </script>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=cdwj4zKH6Kr8">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [20]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1">#Reemplzamos celdas que tengan caracteres ".." y "—" como espacios en blanco</span>
-<span class="n">data_depurada_final</span> <span class="o">=</span> <span class="n">data_depurada</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s1">'..'</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span> <span class="s1">'—'</span><span class="p">:</span> <span class="s1">''</span><span class="p">})</span>
-<span class="n">data_depurada_final</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[20]:</div>
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-31131836-f5c1-47fb-a759-9eeb9f2ba7cf">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th></th>
-<th>Unnamed: 0</th>
-<th>Unnamed: 1</th>
-<th>Human Development Index (HDI)</th>
-<th>Life expectancy at birth</th>
-<th>Expected years of schooling</th>
-<th>Mean years of schooling</th>
-<th>Gross national income (GNI) per capita</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th>0</th>
-<td>HDI rank</td>
-<td>Country</td>
-<td>Value</td>
-<td>(years)</td>
-<td>(years)</td>
-<td>(years)</td>
-<td>(2017 PPP $)</td>
-</tr>
-<tr>
-<th>1</th>
-<td></td>
-<td></td>
-<td>2021</td>
-<td>2021</td>
-<td>2021</td>
-<td>2021</td>
-<td>2021</td>
-</tr>
-<tr>
-<th>3</th>
-<td>1</td>
-<td>Switzerland</td>
-<td>0.962</td>
-<td>83.9872</td>
-<td>16.500299</td>
-<td>13.85966</td>
-<td>66933.00454</td>
-</tr>
-<tr>
-<th>4</th>
-<td>2</td>
-<td>Norway</td>
-<td>0.961</td>
-<td>83.2339</td>
-<td>18.1852</td>
-<td>13.00363</td>
-<td>64660.10622</td>
-</tr>
-<tr>
-<th>5</th>
-<td>3</td>
-<td>Iceland</td>
-<td>0.959</td>
-<td>82.6782</td>
-<td>19.163059</td>
-<td>13.76717</td>
-<td>55782.04981</td>
-</tr>
-<tr>
-<th>...</th>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr>
-<th>217</th>
-<td></td>
-<td>Sub-Saharan Africa</td>
-<td>0.547</td>
-<td>60.112467</td>
-<td>10.267338</td>
-<td>6.001639</td>
-<td>3698.868914</td>
-</tr>
-<tr>
-<th>219</th>
-<td></td>
-<td>Least developed countries</td>
-<td>0.54</td>
-<td>64.215856</td>
-<td>10.182659</td>
-<td>5.21532</td>
-<td>2880.652487</td>
-</tr>
-<tr>
-<th>220</th>
-<td></td>
-<td>Small island developing states</td>
-<td>0.73</td>
-<td>70.325547</td>
-<td>12.422289</td>
-<td>9.08964</td>
-<td>16782.329527</td>
-</tr>
-<tr>
-<th>222</th>
-<td></td>
-<td>Organisation for Economic Co-operation and Dev...</td>
-<td>0.899</td>
-<td>78.987605</td>
-<td>16.459253</td>
-<td>12.267755</td>
-<td>45086.969067</td>
-</tr>
-<tr>
-<th>224</th>
-<td></td>
-<td>World</td>
-<td>0.732</td>
-<td>71.365465</td>
-<td>12.780907</td>
-<td>8.617461</td>
-<td>16752.082922</td>
-</tr>
-</tbody>
-</table>
-<p>212 rows × 7 columns</p>
-</div>
-<div class="colab-df-buttons">
-<div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-31131836-f5c1-47fb-a759-9eeb9f2ba7cf')" style="display:none;" title="Convert this dataframe to an interactive table.">
-<svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
-<path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
-</svg>
-</button>
-<style>
-    .colab-df-container {
-      display:flex;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    .colab-df-buttons div {
-      margin-bottom: 4px;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-<script>
-      const buttonEl =
-        document.querySelector('#df-31131836-f5c1-47fb-a759-9eeb9f2ba7cf button.colab-df-convert');
-      buttonEl.style.display =
-        google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-      async function convertToInteractive(key) {
-        const element = document.querySelector('#df-31131836-f5c1-47fb-a759-9eeb9f2ba7cf');
-        const dataTable =
-          await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                    [key], {});
-        if (!dataTable) return;
-
-        const docLinkHtml = 'Like what you see? Visit the ' +
-          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-          + ' to learn more about interactive tables.';
-        element.innerHTML = '';
-        dataTable['output_type'] = 'display_data';
-        await google.colab.output.renderOutput(dataTable, element);
-        const docLink = document.createElement('div');
-        docLink.innerHTML = docLinkHtml;
-        element.appendChild(docLink);
-      }
-    </script>
-</div>
-<div id="df-260a72b7-7f29-4ce6-abf8-370c8365b5c3">
-<button class="colab-df-quickchart" onclick="quickchart('df-260a72b7-7f29-4ce6-abf8-370c8365b5c3')" style="display:none;" title="Suggest charts">
-<svg height="24px" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
-<g>
-<path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"></path>
-</g>
-</svg>
-</button>
-<style>
-  .colab-df-quickchart {
-      --bg-color: #E8F0FE;
-      --fill-color: #1967D2;
-      --hover-bg-color: #E2EBFA;
-      --hover-fill-color: #174EA6;
-      --disabled-fill-color: #AAA;
-      --disabled-bg-color: #DDD;
-  }
-
-  [theme=dark] .colab-df-quickchart {
-      --bg-color: #3B4455;
-      --fill-color: #D2E3FC;
-      --hover-bg-color: #434B5C;
-      --hover-fill-color: #FFFFFF;
-      --disabled-bg-color: #3B4455;
-      --disabled-fill-color: #666;
-  }
-
-  .colab-df-quickchart {
-    background-color: var(--bg-color);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: none;
-    fill: var(--fill-color);
-    height: 32px;
-    padding: 0;
-    width: 32px;
-  }
-
-  .colab-df-quickchart:hover {
-    background-color: var(--hover-bg-color);
-    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
-    fill: var(--button-hover-fill-color);
-  }
-
-  .colab-df-quickchart-complete:disabled,
-  .colab-df-quickchart-complete:disabled:hover {
-    background-color: var(--disabled-bg-color);
-    fill: var(--disabled-fill-color);
-    box-shadow: none;
-  }
-
-  .colab-df-spinner {
-    border: 2px solid var(--fill-color);
-    border-color: transparent;
-    border-bottom-color: var(--fill-color);
-    animation:
-      spin 1s steps(1) infinite;
-  }
-
-  @keyframes spin {
-    0% {
-      border-color: transparent;
-      border-bottom-color: var(--fill-color);
-      border-left-color: var(--fill-color);
-    }
-    20% {
-      border-color: transparent;
-      border-left-color: var(--fill-color);
-      border-top-color: var(--fill-color);
-    }
-    30% {
-      border-color: transparent;
-      border-left-color: var(--fill-color);
-      border-top-color: var(--fill-color);
-      border-right-color: var(--fill-color);
-    }
-    40% {
-      border-color: transparent;
-      border-right-color: var(--fill-color);
-      border-top-color: var(--fill-color);
-    }
-    60% {
-      border-color: transparent;
-      border-right-color: var(--fill-color);
-    }
-    80% {
-      border-color: transparent;
-      border-right-color: var(--fill-color);
-      border-bottom-color: var(--fill-color);
-    }
-    90% {
-      border-color: transparent;
-      border-bottom-color: var(--fill-color);
-    }
-  }
-</style>
-<script>
-    async function quickchart(key) {
-      const quickchartButtonEl =
-        document.querySelector('#' + key + ' button');
-      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
-      quickchartButtonEl.classList.add('colab-df-spinner');
-      try {
-        const charts = await google.colab.kernel.invokeFunction(
-            'suggestCharts', [key], {});
-      } catch (error) {
-        console.error('Error during call to suggestCharts:', error);
-      }
-      quickchartButtonEl.classList.remove('colab-df-spinner');
-      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
-    }
-    (() => {
-      let quickchartButtonEl =
-        document.querySelector('#df-260a72b7-7f29-4ce6-abf8-370c8365b5c3 button');
-      quickchartButtonEl.style.display =
-        google.colab.kernel.accessAllowed ? 'block' : 'none';
-    })();
-  </script>
-</div>
-<div id="id_74e465a8-e1be-4e5f-a1d6-460a74602189">
-<style>
-      .colab-df-generate {
-        background-color: #E8F0FE;
-        border: none;
-        border-radius: 50%;
-        cursor: pointer;
-        display: none;
-        fill: #1967D2;
-        height: 32px;
-        padding: 0 0 0 0;
-        width: 32px;
-      }
-
-      .colab-df-generate:hover {
-        background-color: #E2EBFA;
-        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-        fill: #174EA6;
-      }
-
-      [theme=dark] .colab-df-generate {
-        background-color: #3B4455;
-        fill: #D2E3FC;
-      }
-
-      [theme=dark] .colab-df-generate:hover {
-        background-color: #434B5C;
-        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-        fill: #FFFFFF;
-      }
-    </style>
-<button class="colab-df-generate" onclick="generateWithVariable('data_depurada_final')" style="display:none;" title="Generate code using this dataframe.">
-<svg height="24px" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
-<path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"></path>
-</svg>
-</button>
-<script>
-      (() => {
-      const buttonEl =
-        document.querySelector('#id_74e465a8-e1be-4e5f-a1d6-460a74602189 button.colab-df-generate');
-      buttonEl.style.display =
-        google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-      buttonEl.onclick = () => {
-        google.colab.notebook.generateWithVariable('data_depurada_final');
-      }
-      })();
-    </script>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=huGwCk79JaMx">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=3iXG6rBJ1j4R">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
